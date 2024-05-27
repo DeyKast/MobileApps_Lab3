@@ -15,8 +15,7 @@ fun FormScreen(userViewModel: UserViewModel) {
     val nameState = remember { mutableStateOf("") }
     val surnameState = remember { mutableStateOf("") }
     val emailState = remember { mutableStateOf("") }
-    val users by userViewModel.users.collectAsState(initial = emptyList())
-
+    val users by userViewModel.users.collectAsState()
 
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()

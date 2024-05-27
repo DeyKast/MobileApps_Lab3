@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun UsersList(userViewModel: UserViewModel) {
-    val usersState = userViewModel.users.collectAsState(initial = emptyList())
+    val usersState = userViewModel.users.collectAsState()
 
     Column {
         FormScreen(userViewModel = userViewModel)

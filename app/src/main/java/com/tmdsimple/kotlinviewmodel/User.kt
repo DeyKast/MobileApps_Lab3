@@ -1,10 +1,8 @@
 package com.tmdsimple.kotlinviewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 data class User(
     val name: String,
@@ -12,14 +10,17 @@ data class User(
     val email: String
 )
 
-class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
-
-    val users: Flow<List<User>> = userRepository.getAllUsers()
+class UserViewModel : ViewModel() {
+    private val _users = MutableStateFlow(emptyList<User>())
+    val users = _users.asStateFlow()
 
     fun addUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.addUser(user)
-        }
+        _users.value = _users.value + user
     }
 
+    fun submitUsers() {
+        // Implement your logic to submit users data, such as sending it to a server or saving it locally.
+        // For simplicity, I'm just printing it here.
+        println(_users.value)
+    }
 }
